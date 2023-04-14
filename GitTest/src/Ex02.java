@@ -12,10 +12,8 @@ public class Ex02 {
 		}
 		}
 		
-		
-		
-		
-		
+
+		System.out.println("충돌Test");
 	}
 	
 	
