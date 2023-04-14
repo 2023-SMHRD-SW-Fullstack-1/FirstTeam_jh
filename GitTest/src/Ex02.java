@@ -7,6 +7,9 @@ public class Ex02 {
 		System.out.println("안녕하세요");
 		for(int i=0;i<5;i++) {
 			System.out.println(i);
+		while(true) {
+			System.out.println("조장 몸무게 : 78kg");
+		}
 		}
 	}
 	
