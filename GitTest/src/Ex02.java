@@ -11,6 +11,8 @@ public class Ex02 {
 			System.out.println("조장 몸무게 : 78kg");
 		}
 		}
+		
+		System.out.println("충돌Test");
 	}
 	
 }
