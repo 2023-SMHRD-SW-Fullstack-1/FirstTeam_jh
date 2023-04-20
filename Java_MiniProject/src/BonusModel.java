@@ -1,9 +1,9 @@
 
-public class Model {
+public class BonusModel {
 	private String quiz;
 	private String answer;
 	
-	public Model(String quiz, String answer) {
+	public BonusModel(String quiz, String answer) {
 		super();
 		this.quiz = quiz;
 		this.answer = answer;

@@ -95,10 +95,10 @@ public class Main {
 	    		System.out.println("영화 제목 맞추기 게임 종료!");
 	    		
 	    		//넌센스 퀴즈 
-	    	     Controller con = new Controller();
+	    	     BonusController con = new BonusController();
 	    	     System.out.println("===넌센스 게임 start!===");
 	    	
-	    	     ArrayList<Model> m = con.bonusGame();
+	    	     ArrayList<BonusModel> m = con.bonusGame();
 	    	     if(m.size()>0) {
 	    	     for(int i=0;i<m.size();i++) {
 	    	    	 String question = m.get(i).getQuiz();

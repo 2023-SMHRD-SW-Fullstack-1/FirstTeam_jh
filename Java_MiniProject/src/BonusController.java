@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Controller {
+public class BonusController {
 	Connection conn = null;
 	PreparedStatement pstm = null;
 	ResultSet rs = null;
@@ -44,9 +44,9 @@ public class Controller {
 		}
 	}
 
-	public ArrayList<Model> bonusGame() {
+	public ArrayList<BonusModel> bonusGame() {
 		getConn();
-		ArrayList<Model> bonusGame = new ArrayList<Model>();
+		ArrayList<BonusModel> bonusGame = new ArrayList<BonusModel>();
 
 		try {
 			String sql = "select * from 넌센스퀴즈정보";
@@ -57,7 +57,7 @@ public class Controller {
 				String question = rs.getString(1);
 				String answer = rs.getString(2);
 
-				Model mo = new Model(question, answer);
+				BonusModel mo = new BonusModel(question, answer);
 				bonusGame.add(mo);
 			}
 		} catch (SQLException e) {
