@@ -123,10 +123,12 @@ public class UserDao {
 	
 	//랭킹조회
 	public ArrayList<UserDto> UserList() {
+		// 아이디, 닉네임, 스코어 저장된 것 출력하기.
+		
 		getConn();
 		ArrayList<UserDto> userList = new ArrayList<>();
 		
-		String sql = "select * from 회원정보 where RANK order by DESC";
+		String sql = "select * from 회원정보 order by RANK DESC";
 		try {
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery(); //쿼리 실행문
@@ -139,7 +141,6 @@ public class UserDao {
 				UserDto dto = new UserDto(id, pw, nick); 
 				userList.add(dto);
 			}
-			
 			
 		} catch (SQLException e) {
 			
@@ -165,7 +166,6 @@ public class UserDao {
 		getConn();
 		
 		int result = 0;
-		
         try {
         	String sql = "insert into 회원정보(RANK) values (?)";
 			pstm = conn.prepareStatement(sql);

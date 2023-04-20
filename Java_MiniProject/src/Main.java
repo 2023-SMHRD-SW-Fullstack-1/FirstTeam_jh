@@ -1,29 +1,43 @@
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		 Scanner sc = new Scanner(System.in);
+
+		Scanner sc = new Scanner(System.in);
+		
 	      String id = "";
 	      String pw = "";
 	      String nick = "";
 	      boolean isLogin = false;
 	      UserDao dao = new UserDao();
 	      
+	      System.out.println(" ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄       ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄       ▄▄  ▄▄▄▄▄▄▄▄▄▄▄      ");   
+	      System.out.println("▐░░▌     ▐░░▌▐░░░░░░░░░░░▌▐░▌             ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌     ▐░░▌▐░░░░░░░░░░░▌     ");         
+	      System.out.println("▐░▌░▌   ▐░▐░▌▐░█▀▀▀▀▀▀▀█░▌ ▐░▌           ▐░▌  ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀      ▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌   ▐░▐░▌▐░█▀▀▀▀▀▀▀▀▀      ");      
+	      System.out.println("▐░▌▐░▌ ▐░▌▐░▌▐░▌       ▐░▌  ▐░▌         ▐░▌       ▐░▌     ▐░▌               ▐░▌          ▐░▌       ▐░▌▐░▌▐░▌ ▐░▌▐░▌▐░▌               ");      
+	      System.out.println("▐░▌ ▐░▐░▌ ▐░▌▐░▌       ▐░▌   ▐░▌       ▐░▌        ▐░▌     ▐░█▄▄▄▄▄▄▄▄▄      ▐░▌ ▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌ ▐░▐░▌ ▐░▌▐░█▄▄▄▄▄▄▄▄▄      ");      
+	      System.out.println("▐░▌  ▐░▌  ▐░▌▐░▌       ▐░▌    ▐░▌     ▐░▌         ▐░▌     ▐░░░░░░░░░░░▌     ▐░▌▐░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌▐░░░░░░░░░░░▌     ");   
+	      System.out.println("▐░▌   ▀   ▐░▌▐░▌       ▐░▌     ▐░▌   ▐░▌          ▐░▌     ▐░█▀▀▀▀▀▀▀▀▀      ▐░▌ ▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌   ▀   ▐░▌▐░█▀▀▀▀▀▀▀▀▀   ");         
+	      System.out.println("▐░▌       ▐░▌▐░▌       ▐░▌      ▐░▌ ▐░▌           ▐░▌     ▐░▌               ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░▌       ");      
+	      System.out.println("▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌       ▐░▐░▌        ▄▄▄▄█░█▄▄▄▄ ▐░█▄▄▄▄▄▄▄▄▄      ▐░█▄▄▄▄▄▄▄█░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄▄▄      ");      
+	      System.out.println("▐░▌       ▐░▌▐░░░░░░░░░░░▌        ▐░▌        ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌     ");      
+	      System.out.println(" ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀          ▀          ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀       ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀      ");
 	      
-	      System.out.println("영화제목 맞추기 게임!");//아스키코드로 꾸밀것!
-	      
-	      
-	      
+	      	      
 	      // 회원가입, 로그인, 종료 선택
+	     
+
+	      
 	      while (true) {
 	         
 	         System.out.print("[1]회원가입 [2]로그인 [3]종료 ");
 	         int choice = sc.nextInt();
 	         sc.nextLine();
-
-	         if (choice == 1) {//회원가입
+	         
+	         // 1. 회원가입
+	         if (choice == 1) {
 	            System.out.print("ID를 입력하세요: ");
 	            id = sc.nextLine();
 	            System.out.print("PW를 입력하세요: ");
@@ -36,57 +50,108 @@ public class Main {
 	            
 	            if(result>0) { //리턴값으로 성공 실패 판단.
 	            	System.out.println("회원가입 성공!");
-	            }else {
+	            } else {
 	            	System.out.println("회원가입 실패!");
 	            }
 	            
+//	            
+//	         // 2. 로그인
 	            
-
-	         } else if (choice == 2) {
-	            // 로그인
-	            System.out.print("ID를 입력하세요: ");
-	            String inputId = sc.next();
-	            System.out.print("PW를 입력하세요: ");
-	            String inputPw = sc.next();
+	         }  else if (choice == 2) {
 	            
-	            dao.login(inputId, inputPw);
+		      System.out.print("ID를 입력하세요: ");
+	          String inputId = sc.next();
+	          System.out.print("PW를 입력하세요: ");
+	          String inputPw = sc.next();
 
-	            // DB에서 ID, PW 확인?
+		          nick = dao.login(inputId, inputPw);
+		          
+		       if(nick != null) {
+		          System.out.println(nick+"님 환영합니다!");
+		          isLogin = true;
+		       }else {
+		          System.out.println("로그인 실패!");
+		          System.out.println("아이디 또는 비밀번호를 확인해주세요.");
+		       }
+	            
+	            if(isLogin) {// 로그인 성공 시
+//	            // 명대사 문제
+//	            System.out.println("명대사 듣고 영화 제목 맞추기 시작!! ");
+//	    		
+//	    		for(int i = 1; i <= 10; i++) {
+//	    			System.out.println("< "+i+"번째 문제 >");
+//	    			QuoteController quote = new QuoteController();
+//	    			quote.playQuoteQuiz();
+//	    		}
+//	    		
+//	    		// OST 문제
+//	    		System.out.println("OST듣고 영화 제목 맞추기!!");
+//	    		for(int i = 1; i <= 10; i++) {
+//	    			System.out.println("< "+i+"번째 문제 >");
+//	    			OstController ost = new OstController();
+//	    			ost.playOstQuiz();
+//	    		}
+//	            
+	    		System.out.println("영화 제목 맞추기 게임 종료!");
+	    		
+	    		//넌센스 퀴즈 
+	    	     Controller con = new Controller();
+	    	     System.out.println("===넌센스 게임 start!===");
+	    	
+	    	     ArrayList<Model> m = con.bonusGame();
+	    	     if(m.size()>0) {
+	    	     for(int i=0;i<m.size();i++) {
+	    	    	 String question = m.get(i).getQuiz();
+	    	    	 String answer = m.get(i).getAnswer();
+	    	    	 System.out.println(question);
+	    	    	 System.out.print("답 : ");
+	    	    	 sc.nextLine();
+	    	    	 String input = sc.next();
+	    	    	 if(input.equals(answer)) {
+	    	    		 System.out.println("정답입니다!\n");
+	    	    	 }else {
+	    	    		 System.out.printf("틀렸습니다ㅠㅠ 정답은 '%s'입니다\n\n",answer); 
+	    	    	 }
+	    	     	}
+	    	     }
+	    	     System.out.println("보너스 게임 꿑~");
+	    	     break;
+	            }
 
-//	            if (id.equals(inputId) && pw.equals(inputPw)) {
-//	               System.out.println(nick + "님, 환영합니다!");
-//	               isLogin = true;
-//	               break;
-//	            } else {
-//	               System.out.println("ID 또는 PW가 일치하지 않습니다.");
-//	            }
-//	         } else if (choice == 3) {
-//	            System.out.println("게임을 종료합니다.");
-//
-//	         } else {
-//	            System.out.println("옳은 번호를 선택하세요.");
-	         }
+	            // 3. 종료
+		         } else if (choice == 3) {
+		            System.out.println("게임을 종료합니다.");
+		            break;
+	
+		         // 4. 옳은 번호 선택
+		         } else {
+		            System.out.println("옳은 번호를 선택하세요.");
+		            continue;
+	     	}	      
+	     	      
+	     }   
+	      
+	      // 랭킹 조회(오름차순)
+	      System.out.println("=== 랭킹 순위 ===");
+	        System.out.println("-ID- \t\t  -NICK-");
+	      ArrayList<UserDto> userList = dao.UserList();
+	      for(int i = 0; i<userList.size();i++) {
+	          id = userList.get(i).getId();
+	          nick = userList.get(i).getNick();
+	         System.out.println(id+" \t\t"+nick);
 	      }
 
-	      // 게임모드 선택
-//	      int mode = 0;
-//	      while (true) {
-//	         System.out.println("[1]명대사 듣고 영화제목 맞추기 [2]OST듣고 영화제목 맞추기");
-//	         mode = sc.nextInt();
-//
-//	         if (mode == 1) {
-//	            System.out.println("db");
-//	            break;
-//	         } else if (mode == 2) {
-//	            System.out.println("db");
-//	            break;
-//	         } else {
-//	            System.out.println("옳은 번호를 선택하세요.");
-//	            continue;
-//	         }
-//	      }
+	}
+	      
+	
+}
+
+
 
 //	       명대사로 영화제목 맞추기
+	  	
+	      
+	 
 //	      int mod2;
 //	      while (true) {
 //	          String[] qa = getRandQAFromDB(); // DB에서 랜덤한 문제와 정답 가져오기
@@ -134,36 +199,10 @@ public class Main {
 //	         }
 //
 //	      }
-	   }
 
-	// 보너스 게임
-//	String quiz = "";
-//	String a = "";
-//	 Scanner sc = new Scanner(System.in);
-//	 Model md = new Model(quiz,a);
-//     Controller con = new Controller();
-//     System.out.println("===넌센스 게임 start!===");
-//     System.out.println("문제를 출력하면 정답을 입력해주세요.\n");
-//
-//     ArrayList<Model> m = con.bonusGame();
-//     if(m.size()>0) {
-//     for(int i=0;i<m.size();i++) {
-//    	 String question = m.get(i).getQuiz();
-//    	 String answer = m.get(i).getAnswer();
-//    	 System.out.println(question);
-//    	 System.out.print("답 : ");
-//    	 String input = sc.nextLine();
-//    	 if(input.equals(answer)) {
-//    		 System.out.println("정답입니다!\n");
-//    	 }else {
-//    		 System.out.printf("틀렸습니다ㅠㅠ 정답은 '%s'입니다\n\n",answer);
-//    		 
-//    	 }
-//    	 
-//     }
-//}
+
 
 
 	
 
-}
+

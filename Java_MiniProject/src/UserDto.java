@@ -6,7 +6,7 @@ public class UserDto {
 	private String pw;
 	private String nick;
 	
-	public UserDto(String InputId, String InputPw, String nick) {
+	public UserDto(String id, String pw, String nick) {
 		this.id = id;
 		this.pw = pw;
 		this.nick = nick;
