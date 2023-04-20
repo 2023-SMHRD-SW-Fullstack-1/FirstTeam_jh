@@ -1,3 +1,4 @@
+//import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -136,6 +137,32 @@ public class Main {
 	   }
 
 	// 보너스 게임
+//	String quiz = "";
+//	String a = "";
+//	 Scanner sc = new Scanner(System.in);
+//	 Model md = new Model(quiz,a);
+//     Controller con = new Controller();
+//     System.out.println("===넌센스 게임 start!===");
+//     System.out.println("문제를 출력하면 정답을 입력해주세요.\n");
+//
+//     ArrayList<Model> m = con.bonusGame();
+//     if(m.size()>0) {
+//     for(int i=0;i<m.size();i++) {
+//    	 String question = m.get(i).getQuiz();
+//    	 String answer = m.get(i).getAnswer();
+//    	 System.out.println(question);
+//    	 System.out.print("답 : ");
+//    	 String input = sc.nextLine();
+//    	 if(input.equals(answer)) {
+//    		 System.out.println("정답입니다!\n");
+//    	 }else {
+//    		 System.out.printf("틀렸습니다ㅠㅠ 정답은 '%s'입니다\n\n",answer);
+//    		 
+//    	 }
+//    	 
+//     }
+//}
+
 
 	
 

@@ -1,0 +1,1 @@
+select * from 넌센스퀴즈정보;

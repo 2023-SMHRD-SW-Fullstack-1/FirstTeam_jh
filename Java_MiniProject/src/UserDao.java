@@ -169,7 +169,7 @@ public class UserDao {
         try {
         	String sql = "insert into 회원정보(RANK) values (?)";
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(4,Score);
+			pstm.setInt(1,Score);
 			
 			result = pstm.executeUpdate();
 			
