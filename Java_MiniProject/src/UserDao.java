@@ -17,6 +17,9 @@ public class UserDao {
 	private String InputId;
 	private String InputPw;
 	private String nick;
+	int rank ;
+	
+	
 	
 	//DB연결
 	public void getConn() {
@@ -37,6 +40,10 @@ public class UserDao {
 		}
 	}
 	
+	public String getInputId() {
+		return InputId;
+	}
+
 	//DB연결 해제
 	public void close() {
 		
@@ -137,8 +144,9 @@ public class UserDao {
 				String id = rs.getString("id");
 				String pw = rs.getString("pw");
 				String nick = rs.getString("nick");
+				int rank = rs.getInt("rank");
 				
-				UserDto dto = new UserDto(id, pw, nick); 
+				UserDto dto = new UserDto(id, pw, nick, rank); 
 				userList.add(dto);
 			}
 			
@@ -162,14 +170,15 @@ public class UserDao {
 	}
 	
 	//랭킹등록
-	public void RankUpdate(int Score) {
+	public void RankUpdate(int score, String InputId) {
 		getConn();
 		
 		int result = 0;
         try {
-        	String sql = "insert into 회원정보(RANK) values (?)";
+        	String sql = "update 회원정보 set RANK = ? where id = ?";
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1,Score);
+			pstm.setInt(1, score);
+	         pstm.setString(2, InputId);
 			
 			result = pstm.executeUpdate();
 			

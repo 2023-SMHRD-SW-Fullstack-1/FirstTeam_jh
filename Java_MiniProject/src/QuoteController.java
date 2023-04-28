@@ -1,4 +1,10 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,16 +13,163 @@ import javazoom.jl.player.MP3Player;
 
 public class QuoteController {
 
+
+	
 	Scanner sc = new Scanner(System.in);
 	Random rd = new Random();
 	ArrayList<QuoteModel> movieList = new ArrayList<QuoteModel>(); // 곡에 대한 정보를 가지고 있는 VO객체 Model
 	
 	MP3Player mp3 = new MP3Player();
-	private int lastPlayedIndex = -1;
 	
-	int index = rd.nextInt(18)+1 ;
-	// 배열을 개수의 크기만큼 넣고 겹치지않게 넣고, 시행할 때 배열 순서대로
-	// 순서는 정해진 거예요? 랜
+	int index = 0;
+
+	
+	Connection conn = null;
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
+	private String InputId;
+	private String InputPw;
+	private String nick;
+	int rank;
+	int score = 0;
+	
+	
+	//DB연결
+	public void getConn() {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
+			String id = "campus_k_0417_4";
+			String pw = "smhrd4";
+			
+			conn = DriverManager.getConnection(url,id,pw); //<- DB 로그인
+			
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	public String getInputId() {
+		return InputId;
+	}
+
+	//DB연결 해제
+	public void close() {
+		
+		try{
+			if (rs != null){
+				rs.close();
+			}
+			if(pstm != null) {
+				pstm.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	//회원가입
+	public int sign(String newId,String newPw,String nick) {
+		
+		getConn();
+		int result = 0;
+		
+		try {
+			// 아이디와 비밀번호 중복 확인
+	         String sqlDistinct = "select count(*) from 회원정보 where ID = ? or NICK = ?";
+	         pstm = conn.prepareStatement(sqlDistinct);
+	         pstm.setString(1, newId);
+	         pstm.setString(2, nick);
+	         rs = pstm.executeQuery();
+	         rs.next();
+	         int count = rs.getInt(1);
+	         if (count > 0) {
+	             System.out.println("이미 가입된 아이디 또는 닉네임입니다.");
+	             return -1;
+	         } else {
+	             // 회원가입 처리
+	             String sql = "insert into 회원정보(ID, PW, NICK) values (?, ?, ?)";
+	             pstm = conn.prepareStatement(sql);
+	             pstm.setString(1, newId);
+	             pstm.setString(2, newPw);
+	             pstm.setString(3, nick);
+	         }
+			
+			result = pstm.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println("쿼리문 오류");
+			e.printStackTrace();
+		}
+		
+		close();
+		return result;
+	}
+	
+	//로그인
+	public String login(String InputId, String InputPw) {
+		
+		getConn();
+		
+		try {
+			
+			String sql = "select nick from 회원정보 where id = ? and pw = ?";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1,InputId);
+			pstm.setString(2,InputPw);
+			rs = pstm.executeQuery();
+			
+			if(rs.next()) {
+				nick = rs.getString("nick");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("쿼리문 오류");
+			e.printStackTrace();
+		}
+		close();
+		return nick;
+	}
+	
+	//랭킹조회
+	public ArrayList<UserDto> UserList() {
+		// 아이디, 닉네임, 스코어 저장된 것 출력하기.
+		
+		getConn();
+		ArrayList<UserDto> userList = new ArrayList<>();
+		
+		String sql = "select * from 회원정보 order by RANK DESC";
+		try {
+			pstm = conn.prepareStatement(sql);
+			rs = pstm.executeQuery(); //쿼리 실행문
+		
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String nick = rs.getString("nick");
+				
+				UserDto dto = new UserDto(id, pw, nick,rank); 
+				userList.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		close();
+		return userList;
+	}
 	
 	// 생성자
 	public QuoteController() {
@@ -40,22 +193,27 @@ public class QuoteController {
 		movieList.add(new QuoteModel("택시운전사", "Quote/택시운전사.mp3","ㅌㅅㅇㅈㅅ"));
 		movieList.add(new QuoteModel("해리포터", "Quote/해리포터.mp3","ㅎㄹㅍㅌ"));
 		movieList.add(new QuoteModel("해바라기", "Quote/해바라기.mp3","ㅎㅂㄹㄱ"));
-
+		
+		Collections.shuffle(movieList);
 	}
-
+	
+	
 	public void play() {
 
 		if (mp3.isPlaying()) {
 			mp3.stop();
 		}
 		mp3.play(movieList.get(index).getQuotePath());
+	
 	}
+	
 	
 	public void stop() {
 		mp3.stop(); 
 	}
 	
 	public void playQuoteQuiz() {
+		
 		int chance = 1;
 		String input;
 		
@@ -63,7 +221,7 @@ public class QuoteController {
 			
 			play();
 			
-			System.out.println(movieList.get(index).getTitle());
+			
 			
 			if(chance == 1 | chance == 2) {
 				System.out.print("정답 입력 : ");
@@ -72,6 +230,7 @@ public class QuoteController {
 			
 				if(movieList.get(index).getTitle().equals(input)) {
 					System.out.println("정답!");
+					score += 10;
 					mp3.stop();
 					break;
 				} else if (!movieList.get(index).getTitle().equals(input)) {
@@ -88,6 +247,7 @@ public class QuoteController {
 				
 				if(movieList.get(index).getTitle().equals(input)) {
 					System.out.println("정답!");
+					score += 10;
 					mp3.stop();
 					break;
 				} else if (!movieList.get(index).getTitle().equals(input)) {
@@ -97,8 +257,76 @@ public class QuoteController {
 					break;
 				}
 			}
+			
 		}
-		stop();
+		
+		mp3.stop();
+		index++;
 	}		
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public int returnScore(int score, String InputId) {
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
+			String id = "campus_k_0417_4";
+			String pw = "smhrd4";
+			
+			conn = DriverManager.getConnection(url,id,pw); 
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		 try {
+			   String sql = "update 회원정보 set RANK = ? where id = ?";
+		         pstm = conn.prepareStatement(sql);
+		         
+		         pstm.setInt(1, score);
+		         pstm.setString(2, InputId);
+		         
+		         int result =pstm.executeUpdate();
+
+		         System.out.println(score);
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		
+		
+		try{
+			if (rs != null){
+				rs.close();
+			}
+			if(pstm != null) {
+				pstm.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	
+	
+		return score;
+	}
 	
 }
