@@ -1,6 +1,6 @@
 # FirstTeam_jh
-Java Mini Project
-자바 첫 프로젝트 입니다
-
-## DB 구상 4개 테이블로 구현했습니다
-![image](https://user-images.githubusercontent.com/121305570/231993849-50f794b7-0ea2-4570-a877-bbc914045e71.png)
+First Java Mini Project. 자바 첫 미니 프로젝트 입니다.
+- 
+-주요기능
+1. MP3player.jar 파일 활용
+2. JDBC 연결 (회원정보-id,pw,nickname- 관리)
